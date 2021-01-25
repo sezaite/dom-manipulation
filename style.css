@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background-color: #c3c6b1;
+}
+
+/* I NEED NOT TO FORGET TO APPLY 100% WIDTH TO <HTML> AS WELL AS <BODY>. JESUS CHRIST THAT TOOK A WHILE*/
