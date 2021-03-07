@@ -7,14 +7,8 @@ main.setAttribute(
 );
 container.setAttribute(
   "style",
-  "display: grid; grid-template-columns: repeat(16, 1fr); grid-template-rows: auto; gap: 3px; width: 400px; height: 400px;"
+  "display: grid; grid-template-rows: auto; gap: 3px; width: 400px; height: 400px;"
 );
-
-//default grid
-for (let i = 0; i < 16 * 16; i++) {
-  drawPixels();
-  hover();
-}
 
 const button = document.createElement("button");
 button.innerText = "REFRESH";
@@ -23,7 +17,6 @@ button.setAttribute(
   "style",
   'background-color: #4b553a; padding: 10px; width: 120px; height: 40px; color: #efe9db; font-family: "Courier New", Courier, monospace; font-size: 16px;'
 );
-console.log(button.innerContent);
 main.insertBefore(button, container);
 main.insertBefore(br, container);
 
@@ -31,41 +24,40 @@ button.addEventListener("click", refresh);
 button.addEventListener("mouseenter", buttonTransform);
 button.addEventListener("mouseout", transformEnd);
 
-/*
-function refresh() {
-  container.textContent = "";
-  let newSize = parseInt()
-    let i;
-    do {
-        i = prompt(
-            "Let's draw a new grid. How many squares would you like to add on each side?"
-          );
-    } while ( 
-        let array = i.split("");
-        for (let y = 0; y < array.length - 1; y++){
-            if (Number.isInteger(array[s].)){
-                return;
-            }
-        }
-    );
-}
-*/
-  const fullSize = newSize * newSize;
-  for (let i = 0; i < fullSize; i++) {
-    container.style.gridTemplateColumns = `repeat(${newSize}, 1fr)`;
+drawAGrid(16);
+
+function drawAGrid(lengthOfSquare) {
+  container.style.gridTemplateColumns = `repeat(${lengthOfSquare}, 1fr)`;
+  for (let i = 0; i < lengthOfSquare * lengthOfSquare; i++) {
     drawPixels();
     hover();
   }
+}
+
+function refresh() {
+  container.innerHTML = "";
+  let newLength;
+  do {
+    newLength = prompt(
+      "Let's draw a new grid. How many squares would you like to add on each side? Don't write more than 40 if you don't want to wait :)"
+    );
+  } while (!isInteger(newLength));
+  drawAGrid(newLength);
+}
+
+function isInteger(number) {
+  return (Number.isInteger(number) || number > 0 || number < 60)
+}
 
 function drawPixels() {
   let element = document.createElement("div");
-  element.className = "e";
+  element.className = "square";
   element.setAttribute("style", "background-color: #dba686;");
   container.appendChild(element);
 }
 
 function hover() {
-  const squares = document.querySelectorAll(".e");
+  const squares = document.querySelectorAll(".square");
   squares.forEach((square) => {
     square.addEventListener("mouseover", function () {
       square.setAttribute("style", "background-color: #efe9db ");
